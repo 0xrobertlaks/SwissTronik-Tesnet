@@ -34,19 +34,7 @@ const sendShieldedQuery = async (provider, destination, data) => {
     }
 };
 
-// Fungsi untuk memverifikasi kontrak
-const verifyContract = async (contractAddress, constructorArguments = []) => {
-    console.log(`Verifying contract at ${contractAddress}...`);
-    try {
-        await hre.run("verify:verify", {
-            address: contractAddress,
-            constructorArguments,
-        });
-        console.log(`Contract at ${contractAddress} verified successfully!`);
-    } catch (error) {
-        console.error(`Error verifying contract at ${contractAddress}:`, error);
-    }
-};
+
 
 // Fungsi untuk mendapatkan URL eksplorasi transaksi
 const getExplorerUrl = (txHash) => `https://explorer-evm.testnet.swisstronik.com/tx/${txHash}`;
@@ -61,7 +49,6 @@ async function main() {
     console.log("SwissTronik contract deployed to:", swisstronik.target);
 
     // Verify SwissTronik contract
-    await verifyContract(swisstronik.target, ["Initial Message"]);
 
     // Set message in SwissTronik contract
     try {
@@ -98,7 +85,6 @@ async function main() {
     console.log("SwissTronikERC20 contract deployed to:", swissTronikERC20.target);
 
     // Verify SwissTronikERC20 contract
-    await verifyContract(swissTronikERC20.target);
 
     // Mint and burn tokens using SwissTronikERC20
     try {
@@ -162,7 +148,6 @@ async function main() {
     console.log(`SwissTronikNFT contract deployed to ${swissTronikNFT.target}`);
 
     // Verify SwissTronikNFT contract
-    await verifyContract(swissTronikNFT.target, [deployer.address]);
 
     // Mint NFT
     try {
@@ -193,7 +178,6 @@ async function main() {
         console.log(`SwissTronikPERC20 contract deployed to: ${perc20Contract.target}`);
 
         // Verify SwissTronikPERC20 contract
-        await verifyContract(perc20Contract.target, []);
 
         // Mint 100 tokens
         const mintFunctionName = "mint100tokens";
@@ -234,7 +218,6 @@ async function main() {
         const swissTronikPrivateNFT = await hre.ethers.deployContract("SwissTronikPrivateNFT");
         await swissTronikPrivateNFT.waitForDeployment();
         console.log("SwissTronikPrivateNFT contract deployed to:", swissTronikPrivateNFT.target);
-        await verifyContract(swissTronikPrivateNFT.target, []);
 
 
         // Mint Private NFT
