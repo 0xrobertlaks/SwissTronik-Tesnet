@@ -202,13 +202,6 @@ async function main() {
         );
         await transferTx.wait();
         console.log(`Token transfer successful! Transaction hash: ${getExplorerUrl(transferTx.hash)}`);
-
-        // Get balance
-        const balanceOfFunctionName = "balanceOf";
-        const balanceData = perc20Contract.interface.encodeFunctionData(balanceOfFunctionName, [recipient]);
-        const balanceResponse = await sendShieldedQuery(deployer.provider, perc20Contract.target, balanceData);
-        const [balance] = perc20Contract.interface.decodeFunctionResult(balanceOfFunctionName, balanceResponse);
-        console.log(`Recipient balance: ${hre.ethers.formatUnits(balance, 18)}`);
     } catch (error) {
         console.error("Error deploying or interacting with SwissTronikPERC20 contract:", error);
     }
