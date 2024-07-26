@@ -46,7 +46,7 @@ async function main() {
     // Deploy SwissTronik contract
     const swisstronik = await hre.ethers.deployContract("SwissTronik", ["Initial Message"]);
     await swisstronik.waitForDeployment();
-    console.log("SwissTronik contract deployed to:", swisstronik.target);
+    console.log("[Task 1] SwissTronik contract deployed to:", swisstronik.target);
 
     // Verify SwissTronik contract
 
@@ -82,7 +82,7 @@ async function main() {
     // Deploy SwissTronikERC20 contract
     const swissTronikERC20 = await hre.ethers.deployContract("SwissTronikERC20");
     await swissTronikERC20.waitForDeployment();
-    console.log("SwissTronikERC20 contract deployed to:", swissTronikERC20.target);
+    console.log("[Task 2] SwissTronikERC20 contract deployed to:", swissTronikERC20.target);
 
     // Verify SwissTronikERC20 contract
 
@@ -145,7 +145,7 @@ async function main() {
     // Deploy SwissTronikNFT contract
     const swissTronikNFT = await hre.ethers.deployContract("SwissTronikNFT", [deployer.address]);
     await swissTronikNFT.waitForDeployment();
-    console.log(`SwissTronikNFT contract deployed to ${swissTronikNFT.target}`);
+    console.log(`[Task 3] SwissTronikNFT contract deployed to ${swissTronikNFT.target}`);
 
     // Verify SwissTronikNFT contract
 
@@ -175,7 +175,7 @@ async function main() {
     try {
         const perc20Contract = await hre.ethers.deployContract("SwissTronikPERC20");
         await perc20Contract.waitForDeployment();
-        console.log(`SwissTronikPERC20 contract deployed to: ${perc20Contract.target}`);
+        console.log(`[Task 4] SwissTronikPERC20 contract deployed to: ${perc20Contract.target}`);
 
         // Verify SwissTronikPERC20 contract
 
@@ -210,7 +210,7 @@ async function main() {
     try {
         const swissTronikPrivateNFT = await hre.ethers.deployContract("SwissTronikPrivateNFT");
         await swissTronikPrivateNFT.waitForDeployment();
-        console.log("SwissTronikPrivateNFT contract deployed to:", swissTronikPrivateNFT.target);
+        console.log("[Task 5] SwissTronikPrivateNFT contract deployed to:", swissTronikPrivateNFT.target);
 
 
         // Mint Private NFT
