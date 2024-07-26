@@ -22,7 +22,7 @@
 
 #### Buat file `.env` di dalam direktori proyek Anda dan tambahkan baris berikut ke dalamnya:
 
-##### ```PRIVATEKEY=yourprivatekey```
+##### ```PRIVATE_KEY=yourprivatekey```
 
 ### 4. Menjalankan Skrip Hardhat
 
