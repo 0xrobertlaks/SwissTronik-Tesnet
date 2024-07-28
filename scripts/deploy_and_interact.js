@@ -228,7 +228,6 @@ async function main() {
     }
 
     // Deploy SwissTronikProxy contract
-    const [deployer] = await ethers.getSigners();
 
   const SwisstronikProxy = await ethers.getContractFactory('SwissTronikSimple');
   const swisstronikProxy = await SwisstronikProxy.deploy();
