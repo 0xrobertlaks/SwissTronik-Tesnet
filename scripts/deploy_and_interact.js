@@ -53,7 +53,7 @@ async function main() {
     // Set message in SwissTronik contract
     try {
         const functionName = "setMessage";
-        const messageToSet = "Hello Swisstronik from me";
+        const messageToSet = "Hello Swisstronik from samidbangkit";
         const setMessageTx = await sendShieldedTransaction(
             deployer,
             swisstronik.target,
@@ -226,6 +226,23 @@ async function main() {
     } catch (error) {
         console.error("Error minting Private NFT:", error);
     }
+
+    // Deploy SwissTronikProxy contract
+    const [deployer] = await ethers.getSigners();
+
+  const SwisstronikProxy = await ethers.getContractFactory('SwissTronikSimple');
+  const swisstronikProxy = await SwisstronikProxy.deploy();
+  await swisstronikProxy.waitForDeployment(); 
+  console.log('Swisstronik deployed to:', swisstronikProxy.target);
+  console.log(`Deployment transaction hash: https://explorer-evm.testnet.swisstronik.com/address/${swisstronik.target}`);
+
+  console.log('');
+  
+  const upgradedSwisstronik = await upgrades.deployProxy(SwisstronikProxy, ['Hello Swisstronik from samidbangkit!!'], { kind: 'transparent' });
+  await upgradedSwisstronik.waitForDeployment(); 
+  console.log("[Task 6] SwissTronikProxy contract deployed to:", upgradedSwisstronik.target);
+  console.log(`Deployment transaction hash: https://explorer-evm.testnet.swisstronik.com/address/${upgradedSwisstronik.target}`);
+
 }
 
 main().catch((error) => {
