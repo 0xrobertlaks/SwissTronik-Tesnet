@@ -233,14 +233,22 @@ async function main() {
   const swisstronikProxy = await SwisstronikProxy.deploy();
   await swisstronikProxy.waitForDeployment(); 
   console.log('Swisstronik deployed to:', swisstronikProxy.target);
-  console.log(`Deployment transaction hash: https://explorer-evm.testnet.swisstronik.com/address/${swisstronik.target}`);
-
-  console.log('');
-  
+  console.log(`Deployment transaction hash: https://explorer-evm.testnet.swisstronik.com/address/${swisstronik.target}`);  
   const upgradedSwisstronik = await upgrades.deployProxy(SwisstronikProxy, ['Hello Swisstronik from samidbangkit!!'], { kind: 'transparent' });
   await upgradedSwisstronik.waitForDeployment(); 
   console.log("[Task 6] SwissTronikProxy contract deployed to:", upgradedSwisstronik.target);
   console.log(`Deployment transaction hash: https://explorer-evm.testnet.swisstronik.com/address/${upgradedSwisstronik.target}`);
+
+  const contractFactory = await hre.ethers.getContractFactory("SwissTronikSimple");
+  const contract = contractFactory.attach(upgradedSwisstronik.target);
+  const functionName = "getMessage";
+  const responseMessage = await sendShieldedQuery(deployer.provider, upgradedSwisstronik.target, contract.interface.encodeFunctionData(functionName));
+  console.log("Decoded response:", contract.interface.decodeFunctionResult(functionName, responseMessage)[0]);
+  const functionName2 = "setMessage";
+  const messageToSet = "Hello Swisstronik from samidbangkit!!";
+  const setMessageTx = await sendShieldedTransaction(deployer, upgradedSwisstronik.target, contract.interface.encodeFunctionData(functionName2, [messageToSet]), 0);
+  await setMessageTx.wait();
+  console.log(`implementation replacement transaction hash: https://explorer-evm.testnet.swisstronik.com/tx/${setMessageTx.hash}`);
 
 }
 
